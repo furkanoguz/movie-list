@@ -35,19 +35,26 @@ const Homepage: FC = () => {
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
 
   const [page, setPage] = useState(0);
-  const [random, setRandom] = useState(0);
 
-  const pageCount = Math.ceil(
-    moviesList.filter((a) => !favoriteIds.includes(a.id)).length / 12
+  const pageCount = useMemo(
+    () =>
+      Math.ceil(
+        moviesList.filter((a) => !favoriteIds.includes(a.id)).length / 12
+      ),
+    [favoriteIds]
   );
 
   const favoritedMovies = useMemo(() => {
     return moviesList.filter((a) => favoriteIds.includes(a.id));
   }, [favoriteIds]);
 
-  const currentMovies = moviesList
-    .slice(page * LIST_COUNT, page * LIST_COUNT + LIST_COUNT)
-    .filter((a) => !favoriteIds.includes(a.id));
+  const currentMovies = useMemo(
+    () =>
+      moviesList
+        .slice(page * LIST_COUNT, page * LIST_COUNT + LIST_COUNT)
+        .filter((a) => !favoriteIds.includes(a.id)),
+    [page, favoriteIds]
+  );
 
   const toggleWishlist = useCallback(() => {
     setWishlistVisible(!wishlistVisible);
@@ -68,7 +75,9 @@ const Homepage: FC = () => {
   );
 
   const changePage = (page: number) => {
+    setLoader(true);
     setPage(page);
+    setTimeout(() => setLoader(false), 400);
   };
 
   const debouncedSearch = useCallback(

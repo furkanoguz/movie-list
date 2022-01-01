@@ -24,8 +24,13 @@ export const MoviesWrapper = styled.div`
 export const MovieWrapper = styled.div`
   width: 31%;
   padding: 15px;
-  @media ${DEVICE.laptop} {
-    width: 100%;
+
+  @media ${DEVICE.laptopL} {
+    width: 46%;
+    padding: 10px;
+  }
+  @media ${DEVICE.tablet} {
+    width: 93%;
     padding: 0;
     margin-top: 15px;
   }

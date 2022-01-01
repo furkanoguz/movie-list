@@ -21,4 +21,7 @@ export const StyledInput = styled.input`
     width: 90%;
     font-size: 14px;
   }
+  @media ${DEVICE.tablet} {
+    width: 90%;
+  }
 `;
